@@ -1,0 +1,28 @@
+
+
+:root {
+  
+  --bg:      #0f0f1a;   
+  --surface: #1a1a2e;   
+  --card:    #16213e;   
+  --accent:  #e63946;   
+  --yellow:  #ffd60a;   
+  --blue:    #4cc9f0;   
+  --green:   #06d6a0;   
+  --text:    #f0f0f0;   
+  --muted:   #8888aa;   
+  --border:  rgba(255, 255, 255, 0.08);  
+
+  
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body:  'Outfit', sans-serif;
+
+ 
+  --sidebar-w:    260px;
+  --page-max-w:   700px;
+  --dex-max-w:    1100px;
+  --radius-sm:    8px;
+  --radius-md:    12px;
+  --radius-lg:    20px;
+  --radius-pill:  20px;
+}

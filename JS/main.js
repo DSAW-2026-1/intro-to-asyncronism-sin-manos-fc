@@ -1,0 +1,4 @@
+
+renderLives();
+updateScoreDisplay();
+loadPokemon();

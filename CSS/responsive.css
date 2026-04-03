@@ -1,0 +1,41 @@
+
+
+@media (max-width: 600px) {
+
+  
+  #page-pokedex {
+    padding-left: 1rem;    
+  }
+
+  #dex-search { width: 100%; }
+
+  .dex-header { flex-direction: column; align-items: flex-start; }
+
+  
+  .poke-grid {
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+  }
+
+  
+  #page-game header {
+    padding-left: 4rem;    
+  }
+
+
+  .info-grid { grid-template-columns: 1fr; }
+
+
+  .input-area { flex-wrap: wrap; }
+  .btn        { width: 100%; }
+
+
+  .stats-bar  { gap: 1rem; }
+  .stat-value { font-size: 12px; }
+
+
+  .pokemon-frame { width: 170px; height: 170px; }
+  #pokemon-img   { width: 150px; height: 150px; }
+
+
+  .modal-grid { grid-template-columns: 1fr; }
+}
