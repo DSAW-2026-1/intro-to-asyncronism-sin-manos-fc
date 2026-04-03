@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PokéApp</title>
+
+  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/sidebar.css" />
+  <link rel="stylesheet" href="css/game.css" />
+  <link rel="stylesheet" href="css/pokedex.css" />
+  <link rel="stylesheet" href="css/modal.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <button id="menu-btn" onclick="toggleSidebar()">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </button>
+
+  <div id="overlay" onclick="closeSidebar()"></div>
+
+  <div id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">Poké<span>App</span><br />v1.0</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item active" id="nav-game" onclick="switchPage('game')">
+        <div class="nav-icon">🎮</div>
+        <div class="nav-text">
+          <div class="nav-title">Who's that Pokémon?</div>
+          <div class="nav-sub">Guess the silhouette</div>
+        </div>
+        <div class="nav-badge">ON</div>
+      </div>
+
+      <div class="nav-item" id="nav-pokedex" onclick="switchPage('pokedex')">
+        <div class="nav-icon">📖</div>
+        <div class="nav-text">
+          <div class="nav-title">Pokédex</div>
+          <div class="nav-sub">Browse all Pokémon</div>
+        </div>
+        <div class="nav-badge">ON</div>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      Data powered by<br />
+      <strong style="color: var(--blue)">PokéAPI</strong> · pokeapi.co
+    </div>
+  </div>
+
+  <div id="page-game" class="page active">
+    <header>
+      <div class="logo">Who's that<br /><span>Pokémon?</span></div>
+      <div class="stats-bar">
+        <div class="stat">
+          <div class="stat-label">Streak</div>
+          <div class="stat-value" id="streak-display">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Score</div>
+          <div class="stat-value" id="score-display">0</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="game-card">
+        <div class="lives" id="lives-container"></div>
+
+        <div class="gen-badge" id="gen-badge">Generation I</div>
+
+        <div class="progress-wrap">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
+          <div class="progress-label" id="progress-label">0 / 10</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="silhouette-area">
+          <div class="question-mark" id="question-label">??? ??? ???</div>
+          <div class="pokemon-frame">
+            <div class="loader" id="loader"></div>
+            <img id="pokemon-img" src="" alt="Pokémon" style="display: none" />
+          </div>
+          <div class="hint-area" id="hint-area"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div id="input-section">
+          <div class="input-area">
+            <input
+              type="text"
+              id="answer-input"
+              placeholder="Type the name..."
+              autocomplete="off"
+            />
+            <button class="btn btn-primary" id="submit-btn" onclick="checkAnswer()">OK</button>
+            <button class="btn btn-hint"    id="hint-btn"   onclick="showHint()">Hint</button>
+          </div>
+          <button class="btn btn-skip" id="skip-btn" onclick="revealAndSkip()">
+            Give up — reveal
+          </button>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="revealed-info" id="revealed-info">
+          <div class="info-grid">
+            <div class="info-block">
+              <div class="info-block-label">Name</div>
+              <div class="info-block-value" id="info-name">—</div>
+            </div>
+            <div class="info-block">
+              <div class="info-block-label">Weight</div>
+              <div class="info-block-value" id="info-weight">—</div>
+            </div>
+          </div>
+          <div class="info-grid">
+            <div class="info-block">
+              <div class="info-block-label">Height</div>
+              <div class="info-block-value" id="info-height">—</div>
+            </div>
+            <div class="info-block">
+              <div class="info-block-label">Generation</div>
+              <div class="info-block-value" id="info-gen">—</div>
+            </div>
+          </div>
+          <div class="next-btn-wrap">
+            <button class="btn-next" onclick="nextPokemon()">Next &rarr;</button>
+          </div>
+        </div>
+
+        <div id="game-over">
+          <div class="game-over-title">GAME<br />OVER</div>
+          <div class="game-over-score" id="final-score">0 pts</div>
+          <div class="game-over-sub"   id="final-msg"></div>
+          <button class="btn-next" onclick="restartGame()">Play again</button>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+
+  <div id="page-pokedex" class="page">
+
+    <div class="dex-header">
+      <div>
+        <div class="dex-title">Pokédex<br /><span>All Generations</span></div>
+      </div>
+      <div class="dex-search-wrap">
+        <input
+          type="text"
+          id="dex-search"
+          placeholder="Search Pokémon..."
+          oninput="filterDex(this.value)"
+        />
+      </div>
+    </div>
+
+    <div class="gen-tabs" id="gen-tabs">
+      <button class="gen-tab active" data-gen="all" onclick="filterByGen('all', this)">All</button>
+      <button class="gen-tab" data-gen="0"   onclick="filterByGen(0, this)">Gen I</button>
+      <button class="gen-tab" data-gen="1"   onclick="filterByGen(1, this)">Gen II</button>
+      <button class="gen-tab" data-gen="2"   onclick="filterByGen(2, this)">Gen III</button>
+      <button class="gen-tab" data-gen="3"   onclick="filterByGen(3, this)">Gen IV</button>
+      <button class="gen-tab" data-gen="4"   onclick="filterByGen(4, this)">Gen V</button>
+      <button class="gen-tab" data-gen="5"   onclick="filterByGen(5, this)">Gen VI</button>
+    </div>
+
+    <div class="dex-grid-wrap" id="dex-grid-wrap">
+      <div class="dex-initial-loader">
+        <div class="mini-spin"></div> Loading Pokédex...
+      </div>
+    </div>
+
+  </div>
+
+
+  <div id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModalBtn()">&#x2715;</button>
+      <div class="modal-body" id="modal-body">
+        <div class="modal-loader">
+          <div class="loader" style="display: block"></div>
+          Loading...
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/pokedex.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
