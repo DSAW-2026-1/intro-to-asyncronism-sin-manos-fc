@@ -3,6 +3,9 @@
 ## Introducción al Asíncronismo
 
 
+Trabajo hecho por: Andres Ramos y Felipe Mahecha
+URL project: https://intro-to-asyncronism.netlify.app/
+
 ## Funcionalidades
 
 - Crear una aplicación web que se comunique con la API propuesta: https://pokeapi.co/
